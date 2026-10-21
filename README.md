@@ -6,7 +6,18 @@ A Claude Code plugin that searches job sources, scores every posting from 1 to 5
 - **Filters:** by city, country, remote preference and region, posting age, seniority and excluded keywords.
 - **Scoring:** one holistic 1.0-5.0 score per job, with a rationale, matched skills and gaps. Violating a must-have or deal-breaker caps the score below the threshold.
 - **Tracker:** `job-scan/tracker.md` is updated on every scan. It records new, known, shortlisted and closed postings, plus a scan log.
-- **Apply:** the plugin prepares a cover letter, CV notes and screening answers. **You submit the application yourself.** The plugin never auto-submits.
+- **Apply:** the plugin prepares a tailored CV PDF, cover letter, CV notes and screening answers. The tailored CV is the same CV with a stronger emphasis on the posting's requirements, never a rewrite. **You submit the application yourself.** The plugin never auto-submits.
+- **Evaluate:** score one job URL or pasted description on demand, without running a full scan.
+
+## See it in action
+
+Claude Code:
+
+![job-scan with Claude Code](docs/assets/claude-code.gif)
+
+OpenCode:
+
+![job-scan with OpenCode](docs/assets/opencode.gif)
 
 ## Requirements
 - Claude Code or OpenCode
@@ -20,7 +31,7 @@ Load it locally while developing:
 claude --plugin-dir /path/to/job-scan-plugin
 ```
 
-Or install it from a plugin marketplace once the repo is published. Commands are namespaced by the plugin name: `/job-scan:setup`, `/job-scan:scan`, `/job-scan:apply`, `/job-scan:tracker`.
+Or install it from a plugin marketplace once the repo is published. Commands are namespaced by the plugin name: `/job-scan:setup`, `/job-scan:scan`, `/job-scan:evaluate`, `/job-scan:apply`, `/job-scan:tracker`, `/job-scan:reset`.
 
 ### Firecrawl (optional)
 The plugin ships a `.mcp.json` that starts `firecrawl-mcp`. Set your key before launching Claude Code:
@@ -46,7 +57,7 @@ node /path/to/job-scan-plugin/scripts/install-opencode.mjs --global  # or into ~
 Options: `--no-mcp` (don't touch `opencode.json`), `--dry-run` (list what would be written). Re-run it after pulling updates; it only overwrites its own files and never touches your `job-scan/` data.
 
 What it does:
-- Writes the commands to `.opencode/commands/`. OpenCode has no plugin namespace, so they are renamed: `/job-scan-setup`, `/job-scan` (the scan), `/job-scan-apply`, `/job-scan-tracker`, `/job-scan-reset`. Everything below applies with those names instead of `/job-scan:*`.
+- Writes the commands to `.opencode/commands/`. OpenCode has no plugin namespace, so they are renamed: `/job-scan-setup`, `/job-scan` (the scan), `/job-scan-evaluate`, `/job-scan-apply`, `/job-scan-tracker`, `/job-scan-reset`. Everything below applies with those names instead of `/job-scan:*`.
 - Writes the subagents to `.opencode/agents/` (`mode: subagent` with `permission:` rules) and the skills to `.opencode/skills/`.
 - Copies the scripts, portals and templates to `.opencode/job-scan/` and points the commands there.
 - Adds the Firecrawl MCP server to `opencode.json` (`mcp.firecrawl`, key read from `FIRECRAWL_API_KEY`). If your config has comments and can't be parsed, it prints the snippet to paste.
@@ -65,9 +76,12 @@ Run these from the directory where you want your job-search data to live (not in
 2. `/job-scan:scan`
    - Fetches jobs, skips ones already in the tracker, scores the new ones in parallel, and updates the tracker.
    - Prints the new shortlisted jobs with links.
-3. `/job-scan:apply <job-id>` or `/job-scan:apply --shortlisted`
-   - Writes materials to `job-scan/applications/<company>-<role>/` and sets the status to `Prepared`.
-4. Submit the application yourself, then tell Claude. It runs `set-status <id> Applied`.
+3. `/job-scan:evaluate <url | description>` (optional)
+   - Scores one posting against your profile and CV, prints the verdict, matches and gaps, and saves a report to `job-scan/evaluations/`.
+   - Add `--track` to put the job into the tracker so it can be prepared. See [Evaluate one job](#evaluate-one-job).
+4. `/job-scan:apply <job-id>` or `/job-scan:apply --shortlisted`
+   - Writes a tailored CV (`cv-tailored.md` + `cv-tailored.pdf`), cover letter, CV notes and screening answers to `job-scan/applications/<company>-<role>/`, and sets the status to `Prepared`.
+5. Submit the application yourself, then tell Claude. It runs `set-status <id> Applied`.
 
 Repeat step 2 whenever you want a fresh scan. Only new postings are scored, so repeat scans are cheap.
 
@@ -77,7 +91,8 @@ Repeat step 2 whenever you want a fresh scan. Only new postings are scored, so r
 |---|---|
 | `/job-scan:setup [cv.pdf]` | Create `job-scan/`, convert and review the CV, build `profile.yml` |
 | `/job-scan:scan [--portals\|--firecrawl\|--both] [--limit N] [--role "x"] [--location "y"] [--country "z"] [--days N] [--remote-only]` | Fetch, filter, dedupe, score and update the tracker |
-| `/job-scan:apply <id>\|--shortlisted` | Prepare cover letter, CV notes and screening answers |
+| `/job-scan:evaluate <url\|description> [--track] [--json]` | Score one posting on demand and save an evaluation report |
+| `/job-scan:apply <id>\|--shortlisted` | Prepare a tailored CV PDF, cover letter, CV notes and screening answers |
 | `/job-scan:tracker [list\|show <id>\|set <id> <status> [note]\|render]` | View or update the tracker |
 | `/job-scan:reset [cv\|roles\|locations\|requirements\|sources\|threshold]` | Go through your CV and every preference one by one: keep as is or modify. Optionally re-scores the tracker afterwards |
 
@@ -93,7 +108,11 @@ job-scan/
 │  └─ cv.profile.yml      # extracted skills, seniority, titles
 ├─ tracker.md             # generated, human-readable view
 ├─ tracker.json           # source of truth
+├─ evaluations/           # reports from /job-scan:evaluate
+├─ .runs/                 # scratch files from scans and --track
 └─ applications/<company>-<role>/
+   ├─ cv-tailored.md      # CV with the posting's emphasis
+   ├─ cv-tailored.pdf     # generated from cv-tailored.md
    ├─ cover-letter.md
    ├─ cv-notes.md
    ├─ screening-answers.md
@@ -114,6 +133,32 @@ Statuses: `Shortlisted`, `Prepared`, `Applied`, `Interview`, `Offer`, `Rejected`
 Change them with `/job-scan:tracker set <id> Interview "phone screen Tue"`. `tracker.md` is regenerated from `tracker.json`, so don't edit it by hand.
 
 A re-scan never overwrites a status you set. A posting is closed only when its source was fully fetched in that run and the posting did not appear.
+
+## Tailored CVs
+
+`/job-scan:apply` writes `cv-tailored.md` from your reviewed `job-scan/cv/cv.md`, then renders `cv-tailored.pdf`. The tailoring is deliberately conservative:
+
+- Employers, job titles, dates, education, locations and certifications stay verbatim.
+- Bullets and skills are reordered so the ones matching the posting's top requirements lead.
+- Wording may mirror the posting's vocabulary where it is truthful. Nothing is invented, renamed or hidden.
+- Older or unrelated bullets may be trimmed to keep the CV to 1-2 pages.
+
+The renderer (`scripts/render-cv-pdf.mjs`) has no dependencies and uses the built-in Helvetica fonts, so it supports Latin-1/WinAnsi text. If your CV uses another script, the renderer exits with an error; `apply` discards the incomplete PDF, keeps `cv-tailored.md`, and asks you to export the PDF from your editor instead. You can render any markdown CV manually:
+
+```bash
+node scripts/render-cv-pdf.mjs path/to/cv.md path/to/cv.pdf
+```
+
+## Evaluate one job
+
+`/job-scan:evaluate <url | path | "pasted description">` scores a single posting against the same rubric, CV and profile used by scans, without fetching anything else. It prints:
+
+- verdict (`APPLY`, `MAYBE` or `SKIP`), score and knockout reason
+- matched requirements with CV evidence
+- gaps and how to address them honestly
+- location, seniority, salary if stated, and the apply link
+
+It saves a report to `job-scan/evaluations/`. By default it does not touch the tracker; add `--track` to add the scored job to the pipeline so `/job-scan:apply <id>` can prepare it. `--json` also prints the result as JSON.
 
 ## How scoring works
 
@@ -201,13 +246,16 @@ A wrong slug just logs an error for that source. Some APIs (Workable, SmartRecru
 ```
 .claude-plugin/plugin.json   manifest
 .mcp.json                    Firecrawl MCP server
-commands/                    setup, scan, apply, tracker, reset
+commands/                    setup, scan, evaluate, apply, tracker, reset
 skills/                      job-scoring (rubric), job-sourcing (fetch rules)
 agents/                      job-scorer, job-fetcher
 scripts/fetch-jobs.mjs       ATS and API fetcher + normalizer
-scripts/tracker.mjs          dedupe, merge, status changes, tracker.md rendering
+scripts/tracker.mjs          dedupe, merge, add, status changes, tracker.md rendering
+scripts/render-cv-pdf.mjs    zero-dependency markdown CV -> PDF
+scripts/make-demo-gifs.py    regenerates the README demo GIFs (needs Pillow)
 config/portals.json          starter portal list
-templates/                   profile.yml, cover-letter.md
+templates/                   profile.yml, cover-letter.md, cv-tailoring.md
+docs/assets/                 README demo GIFs
 ```
 
 Test the scripts directly:

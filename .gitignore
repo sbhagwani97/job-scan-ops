@@ -2,3 +2,4 @@ job-scan/
 cv/
 node_modules/
 *.log
+__pycache__/

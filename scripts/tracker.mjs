@@ -6,6 +6,7 @@
 //   init [--portals-src file]                 create dir structure, empty tracker, copy portals
 //   filter --jobs f --out f --run ID          drop already-known jobs, touch lastSeen, write new ones
 //   merge  --scored f --run ID [--threshold 4] [--sources a,b] [--complete a,b]
+//   add    --job f [--threshold 4]             add/update one job with its score (used by evaluate)
 //   set-status <id> <Status> [--note text]
 //   list [--status S] [--min-score N] [--json]
 //   show <id>
@@ -174,6 +175,47 @@ const commands = {
     });
     save(t);
     console.log(JSON.stringify({ new: added, shortlisted, closed, threshold }));
+  },
+
+  // Add or update a single job from a JSON file that already carries its score.
+  // Used by /job-scan:evaluate --track. Existing manually-set statuses are preserved.
+  add() {
+    if (!flags.job) die('--job is required');
+    const raw = readJson(flags.job);
+    const j = Array.isArray(raw) ? raw[0] : raw;
+    if (!j || !j.title || !j.url) die('job JSON must include at least title and url');
+    if (!j.id) j.id = hashId(j.url || dupeKey(j));
+    const threshold = Number(flags.threshold ?? 4);
+    const t = load();
+    const existing = t.jobs[j.id];
+    const score = typeof j.score === 'number' ? j.score : existing?.score ?? null;
+    const knockout = !!j.knockout;
+    const qualified = score !== null && !knockout && score >= threshold;
+    const manualStatus = existing && !['Shortlisted', 'Skipped'].includes(existing.status);
+    const status = manualStatus ? existing.status : (qualified ? 'Shortlisted' : 'Skipped');
+    t.jobs[j.id] = {
+      ...(existing || {}),
+      id: j.id,
+      company: j.company || existing?.company || 'Unknown',
+      title: j.title,
+      location: j.location || existing?.location || '',
+      url: j.url,
+      source: j.source || existing?.source || 'manual',
+      postedDate: j.postedDate || existing?.postedDate || null,
+      score,
+      rationale: j.rationale || existing?.rationale || '',
+      matched: j.matched || existing?.matched || [],
+      gaps: j.gaps || existing?.gaps || [],
+      knockout,
+      qualified,
+      status,
+      firstSeen: existing?.firstSeen || today(),
+      lastSeen: today(),
+      notes: knockout ? `knockout: ${j.knockoutReason || 'requirement violated'}` : (existing?.notes || ''),
+      description: String(j.description || existing?.description || '').slice(0, 8000),
+    };
+    save(t);
+    console.log(JSON.stringify({ id: j.id, status, score, qualified }));
   },
 
   // Export tracked jobs (with descriptions) for re-scoring after a CV/profile change.

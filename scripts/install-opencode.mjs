@@ -165,7 +165,7 @@ installSkills();
 installSupport();
 installMcp();
 
-const list = ['setup', 'scan', 'apply', 'tracker', 'reset'].map((n) => '/' + cmdName(n)).join('  ');
+const list = ['setup', 'scan', 'evaluate', 'apply', 'tracker', 'reset'].map((n) => '/' + cmdName(n)).join('  ');
 console.log(`\n${DRY ? '(dry run) ' : ''}Installed job-scan for OpenCode in ${baseDir}`);
 console.log(`Commands: ${list}`);
 console.log('Optional: set FIRECRAWL_API_KEY for the Firecrawl sources. Start with /job-scan-setup path/to/cv.pdf');
