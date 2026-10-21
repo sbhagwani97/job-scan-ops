@@ -9,7 +9,7 @@ A Claude Code plugin that searches job sources, scores every posting from 1 to 5
 - **Apply:** the plugin prepares a cover letter, CV notes and screening answers. **You submit the application yourself.** The plugin never auto-submits.
 
 ## Requirements
-- Claude Code
+- Claude Code or OpenCode
 - Node.js 18+ (used by the fetch and tracker scripts; no `npm install` needed)
 - Optional: a [Firecrawl](https://firecrawl.dev) API key for web sources
 
@@ -33,6 +33,25 @@ $env:FIRECRAWL_API_KEY = "fc-..."
 ```
 
 Without a key, use `source_mode: portals`. The Firecrawl server will fail to start, but everything else works.
+
+## Using with OpenCode
+The same repo also works in [OpenCode](https://opencode.ai). OpenCode does not load Claude Code plugins, so an installer converts the files into OpenCode's layout:
+
+```bash
+# from your job-search project directory
+node /path/to/job-scan-plugin/scripts/install-opencode.mjs          # project install into ./.opencode
+node /path/to/job-scan-plugin/scripts/install-opencode.mjs --global  # or into ~/.config/opencode
+```
+
+Options: `--no-mcp` (don't touch `opencode.json`), `--dry-run` (list what would be written). Re-run it after pulling updates; it only overwrites its own files and never touches your `job-scan/` data.
+
+What it does:
+- Writes the commands to `.opencode/commands/`. OpenCode has no plugin namespace, so they are renamed: `/job-scan-setup`, `/job-scan` (the scan), `/job-scan-apply`, `/job-scan-tracker`, `/job-scan-reset`. Everything below applies with those names instead of `/job-scan:*`.
+- Writes the subagents to `.opencode/agents/` (`mode: subagent` with `permission:` rules) and the skills to `.opencode/skills/`.
+- Copies the scripts, portals and templates to `.opencode/job-scan/` and points the commands there.
+- Adds the Firecrawl MCP server to `opencode.json` (`mcp.firecrawl`, key read from `FIRECRAWL_API_KEY`). If your config has comments and can't be parsed, it prints the snippet to paste.
+
+Notes: CV conversion needs a model that can read PDFs; otherwise pass a `.md` or `.txt` CV. The OpenCode conversion has not been tested against every model, so report anything that breaks.
 
 ## Quick start
 
