@@ -2,7 +2,7 @@
 
 A Claude Code plugin that searches job sources, scores every posting from 1 to 5 against your CV, keeps a running `tracker.md`, and prepares applications for the strong matches.
 
-- **Sources:** about 80 company ATS boards and 9 job-board APIs with no key needed, plus the Firecrawl MCP (optional) for web sources such as LinkedIn, Indeed and Wellfound.
+- **Sources:** about 190 company ATS boards and 9 job-board APIs with no key needed, plus the Firecrawl MCP (optional) for web sources such as LinkedIn, Indeed and Wellfound. The company list covers global startups and mid-size leaders, plus India-born tech and AI companies such as Razorpay, Freshworks, Meesho, Sarvam AI, CRED, Groww, Atlan and Observe.AI.
 - **Filters:** by city, country, remote preference and region, posting age, seniority and excluded keywords.
 - **Scoring:** one holistic 1.0-5.0 score per job, with a rationale, matched skills and gaps. Violating a must-have or deal-breaker caps the score below the threshold.
 - **Tracker:** `job-scan/tracker.md` is updated on every scan. It records new, known, shortlisted and closed postings, plus a scan log.
@@ -210,7 +210,7 @@ Starter list in `config/portals.json` (copied to `job-scan/portals.json` at setu
 
 | Kind | Sources |
 |---|---|
-| **Company ATS boards** (free APIs, about 80 companies to start) | Greenhouse, Lever, Ashby, Workable, SmartRecruiters, Recruitee, Personio |
+| **Company ATS boards** (free APIs, about 190 companies to start) | Greenhouse, Lever, Ashby, Workable, SmartRecruiters, Recruitee, Personio |
 | **Job-board APIs** (free, no key) | RemoteOK, Remotive, Arbeitnow (Germany/Europe), Himalayas, Jobicy, The Muse, We Work Remotely, Working Nomads, Hacker News "Who is hiring" |
 | **Web sources** (Firecrawl, or WebFetch as a fallback) | LinkedIn, Indeed, Glassdoor, Wellfound, Work at a Startup (YC), Welcome to the Jungle, StepStone, XING, Naukri, Built In, Dice, ZipRecruiter, Reed, SEEK, plus an ATS-discovery web search |
 
