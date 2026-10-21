@@ -1,0 +1,547 @@
+﻿{
+    "_comment":  "Starter list (company slugs verified when written; a wrong slug just logs an error and is skipped). \u0027ats\u0027 = per-company boards, \u0027api\u0027 = job-board APIs, both fetched by scripts/fetch-jobs.mjs with no key. \u0027web\u0027 entries are searched by Claude via Firecrawl or WebFetch. Placeholders: {role} {role_slug} {location} {location_slug} {days} {seconds}. setup copies this file to job-scan/portals.json - edit that copy.",
+    "ats":  [
+                {
+                    "company":  "Stripe",
+                    "type":  "greenhouse",
+                    "slug":  "stripe"
+                },
+                {
+                    "company":  "Cloudflare",
+                    "type":  "greenhouse",
+                    "slug":  "cloudflare"
+                },
+                {
+                    "company":  "Datadog",
+                    "type":  "greenhouse",
+                    "slug":  "datadog"
+                },
+                {
+                    "company":  "Figma",
+                    "type":  "greenhouse",
+                    "slug":  "figma"
+                },
+                {
+                    "company":  "Airbnb",
+                    "type":  "greenhouse",
+                    "slug":  "airbnb"
+                },
+                {
+                    "company":  "Databricks",
+                    "type":  "greenhouse",
+                    "slug":  "databricks"
+                },
+                {
+                    "company":  "Anthropic",
+                    "type":  "greenhouse",
+                    "slug":  "anthropic"
+                },
+                {
+                    "company":  "Coinbase",
+                    "type":  "greenhouse",
+                    "slug":  "coinbase"
+                },
+                {
+                    "company":  "Discord",
+                    "type":  "greenhouse",
+                    "slug":  "discord"
+                },
+                {
+                    "company":  "Reddit",
+                    "type":  "greenhouse",
+                    "slug":  "reddit"
+                },
+                {
+                    "company":  "Instacart",
+                    "type":  "greenhouse",
+                    "slug":  "instacart"
+                },
+                {
+                    "company":  "Pinterest",
+                    "type":  "greenhouse",
+                    "slug":  "pinterest"
+                },
+                {
+                    "company":  "Lyft",
+                    "type":  "greenhouse",
+                    "slug":  "lyft"
+                },
+                {
+                    "company":  "Robinhood",
+                    "type":  "greenhouse",
+                    "slug":  "robinhood"
+                },
+                {
+                    "company":  "GitLab",
+                    "type":  "greenhouse",
+                    "slug":  "gitlab"
+                },
+                {
+                    "company":  "MongoDB",
+                    "type":  "greenhouse",
+                    "slug":  "mongodb"
+                },
+                {
+                    "company":  "Elastic",
+                    "type":  "greenhouse",
+                    "slug":  "elastic"
+                },
+                {
+                    "company":  "Twilio",
+                    "type":  "greenhouse",
+                    "slug":  "twilio"
+                },
+                {
+                    "company":  "Okta",
+                    "type":  "greenhouse",
+                    "slug":  "okta"
+                },
+                {
+                    "company":  "Asana",
+                    "type":  "greenhouse",
+                    "slug":  "asana"
+                },
+                {
+                    "company":  "Vercel",
+                    "type":  "greenhouse",
+                    "slug":  "vercel"
+                },
+                {
+                    "company":  "Grafana Labs",
+                    "type":  "greenhouse",
+                    "slug":  "grafanalabs"
+                },
+                {
+                    "company":  "Samsara",
+                    "type":  "greenhouse",
+                    "slug":  "samsara"
+                },
+                {
+                    "company":  "Brex",
+                    "type":  "greenhouse",
+                    "slug":  "brex"
+                },
+                {
+                    "company":  "Affirm",
+                    "type":  "greenhouse",
+                    "slug":  "affirm"
+                },
+                {
+                    "company":  "Gusto",
+                    "type":  "greenhouse",
+                    "slug":  "gusto"
+                },
+                {
+                    "company":  "Flexport",
+                    "type":  "greenhouse",
+                    "slug":  "flexport"
+                },
+                {
+                    "company":  "Celonis",
+                    "type":  "greenhouse",
+                    "slug":  "celonis"
+                },
+                {
+                    "company":  "N26",
+                    "type":  "greenhouse",
+                    "slug":  "n26"
+                },
+                {
+                    "company":  "Trivago",
+                    "type":  "greenhouse",
+                    "slug":  "trivago"
+                },
+                {
+                    "company":  "HelloFresh",
+                    "type":  "greenhouse",
+                    "slug":  "hellofresh"
+                },
+                {
+                    "company":  "GetYourGuide",
+                    "type":  "greenhouse",
+                    "slug":  "getyourguide"
+                },
+                {
+                    "company":  "Contentful",
+                    "type":  "greenhouse",
+                    "slug":  "contentful"
+                },
+                {
+                    "company":  "SumUp",
+                    "type":  "greenhouse",
+                    "slug":  "sumup"
+                },
+                {
+                    "company":  "Parloa",
+                    "type":  "greenhouse",
+                    "slug":  "parloa"
+                },
+                {
+                    "company":  "Helsing",
+                    "type":  "greenhouse",
+                    "slug":  "helsing"
+                },
+                {
+                    "company":  "Raisin",
+                    "type":  "greenhouse",
+                    "slug":  "raisin"
+                },
+                {
+                    "company":  "Solarisbank",
+                    "type":  "greenhouse",
+                    "slug":  "solarisbank"
+                },
+                {
+                    "company":  "DoorDash",
+                    "type":  "greenhouse",
+                    "slug":  "doordashusa"
+                },
+                {
+                    "company":  "Roblox",
+                    "type":  "greenhouse",
+                    "slug":  "roblox"
+                },
+                {
+                    "company":  "Duolingo",
+                    "type":  "greenhouse",
+                    "slug":  "duolingo"
+                },
+                {
+                    "company":  "Carta",
+                    "type":  "greenhouse",
+                    "slug":  "carta"
+                },
+                {
+                    "company":  "Toast",
+                    "type":  "greenhouse",
+                    "slug":  "toast"
+                },
+                {
+                    "company":  "Scale AI",
+                    "type":  "greenhouse",
+                    "slug":  "scaleai"
+                },
+                {
+                    "company":  "Waymo",
+                    "type":  "greenhouse",
+                    "slug":  "waymo"
+                },
+                {
+                    "company":  "Zscaler",
+                    "type":  "greenhouse",
+                    "slug":  "zscaler"
+                },
+                {
+                    "company":  "Fivetran",
+                    "type":  "greenhouse",
+                    "slug":  "fivetran"
+                },
+                {
+                    "company":  "Epic Games",
+                    "type":  "greenhouse",
+                    "slug":  "epicgames"
+                },
+                {
+                    "company":  "Riot Games",
+                    "type":  "greenhouse",
+                    "slug":  "riotgames"
+                },
+                {
+                    "company":  "Monzo",
+                    "type":  "greenhouse",
+                    "slug":  "monzo"
+                },
+                {
+                    "company":  "Adyen",
+                    "type":  "greenhouse",
+                    "slug":  "adyen"
+                },
+                {
+                    "company":  "Spotify",
+                    "type":  "lever",
+                    "slug":  "spotify"
+                },
+                {
+                    "company":  "Palantir",
+                    "type":  "lever",
+                    "slug":  "palantir"
+                },
+                {
+                    "company":  "Zoox",
+                    "type":  "lever",
+                    "slug":  "zoox"
+                },
+                {
+                    "company":  "Paytm",
+                    "type":  "lever",
+                    "slug":  "paytm"
+                },
+                {
+                    "company":  "Ro",
+                    "type":  "lever",
+                    "slug":  "ro"
+                },
+                {
+                    "company":  "Notion",
+                    "type":  "ashby",
+                    "slug":  "notion"
+                },
+                {
+                    "company":  "Ramp",
+                    "type":  "ashby",
+                    "slug":  "ramp"
+                },
+                {
+                    "company":  "Openai",
+                    "type":  "ashby",
+                    "slug":  "openai"
+                },
+                {
+                    "company":  "Linear",
+                    "type":  "ashby",
+                    "slug":  "linear"
+                },
+                {
+                    "company":  "Supabase",
+                    "type":  "ashby",
+                    "slug":  "supabase"
+                },
+                {
+                    "company":  "Replit",
+                    "type":  "ashby",
+                    "slug":  "replit"
+                },
+                {
+                    "company":  "Perplexity",
+                    "type":  "ashby",
+                    "slug":  "perplexity"
+                },
+                {
+                    "company":  "Vanta",
+                    "type":  "ashby",
+                    "slug":  "vanta"
+                },
+                {
+                    "company":  "Posthog",
+                    "type":  "ashby",
+                    "slug":  "posthog"
+                },
+                {
+                    "company":  "Modal",
+                    "type":  "ashby",
+                    "slug":  "modal"
+                },
+                {
+                    "company":  "Harvey",
+                    "type":  "ashby",
+                    "slug":  "harvey"
+                },
+                {
+                    "company":  "Cohere",
+                    "type":  "ashby",
+                    "slug":  "cohere"
+                },
+                {
+                    "company":  "Elevenlabs",
+                    "type":  "ashby",
+                    "slug":  "elevenlabs"
+                },
+                {
+                    "company":  "N8n",
+                    "type":  "ashby",
+                    "slug":  "n8n"
+                },
+                {
+                    "company":  "Pleo",
+                    "type":  "ashby",
+                    "slug":  "pleo"
+                },
+                {
+                    "company":  "Lovable",
+                    "type":  "ashby",
+                    "slug":  "lovable"
+                },
+                {
+                    "company":  "Synthesia",
+                    "type":  "ashby",
+                    "slug":  "synthesia"
+                },
+                {
+                    "company":  "Clickhouse",
+                    "type":  "ashby",
+                    "slug":  "clickhouse"
+                },
+                {
+                    "company":  "Temporal",
+                    "type":  "ashby",
+                    "slug":  "temporal"
+                },
+                {
+                    "company":  "Sierra",
+                    "type":  "ashby",
+                    "slug":  "sierra"
+                },
+                {
+                    "company":  "Decagon",
+                    "type":  "ashby",
+                    "slug":  "decagon"
+                },
+                {
+                    "company":  "Cerebras",
+                    "type":  "ashby",
+                    "slug":  "cerebras"
+                },
+                {
+                    "company":  "Writer",
+                    "type":  "ashby",
+                    "slug":  "writer"
+                },
+                {
+                    "company":  "Hugging Face",
+                    "type":  "workable",
+                    "slug":  "huggingface"
+                },
+                {
+                    "company":  "Bosch",
+                    "type":  "smartrecruiters",
+                    "slug":  "BoschGroup"
+                },
+                {
+                    "company":  "Ubisoft",
+                    "type":  "smartrecruiters",
+                    "slug":  "Ubisoft2"
+                },
+                {
+                    "company":  "bunq",
+                    "type":  "recruitee",
+                    "slug":  "bunq"
+                }
+            ],
+    "api":  [
+                {
+                    "name":  "RemoteOK",
+                    "type":  "remoteok"
+                },
+                {
+                    "name":  "Remotive",
+                    "type":  "remotive"
+                },
+                {
+                    "name":  "Arbeitnow",
+                    "type":  "arbeitnow",
+                    "pages":  5,
+                    "notes":  "Germany / Europe, many visa-sponsoring roles"
+                },
+                {
+                    "name":  "Himalayas",
+                    "type":  "himalayas",
+                    "pages":  2
+                },
+                {
+                    "name":  "Jobicy",
+                    "type":  "jobicy"
+                },
+                {
+                    "name":  "The Muse",
+                    "type":  "themuse",
+                    "categories":  [
+                                       "Software Engineering",
+                                       "Data and Analytics"
+                                   ],
+                    "pages":  3
+                },
+                {
+                    "name":  "We Work Remotely",
+                    "type":  "weworkremotely",
+                    "feeds":  [
+                                  "https://weworkremotely.com/remote-jobs.rss"
+                              ]
+                },
+                {
+                    "name":  "Working Nomads",
+                    "type":  "workingnomads"
+                },
+                {
+                    "name":  "HN Who is hiring",
+                    "type":  "hackernews",
+                    "notes":  "Latest monthly thread, startup-heavy"
+                }
+            ],
+    "web":  [
+                {
+                    "name":  "LinkedIn",
+                    "urlTemplate":  "https://www.linkedin.com/jobs/search/?keywords={role}\u0026location={location}\u0026f_TPR=r{seconds}",
+                    "notes":  "Login-walled and hostile to scraping. Best effort; Firecrawl works better than WebFetch."
+                },
+                {
+                    "name":  "Indeed",
+                    "urlTemplate":  "https://www.indeed.com/jobs?q={role}\u0026l={location}\u0026fromage={days}",
+                    "notes":  "Often blocks bots. Change the domain for your country (de.indeed.com, uk.indeed.com, ...)."
+                },
+                {
+                    "name":  "Glassdoor",
+                    "urlTemplate":  "https://www.glassdoor.com/Job/jobs.htm?sc.keyword={role}\u0026locKeyword={location}\u0026fromAge={days}",
+                    "notes":  "Login-walled. Needs Firecrawl."
+                },
+                {
+                    "name":  "Wellfound",
+                    "urlTemplate":  "https://wellfound.com/role/{role_slug}",
+                    "notes":  "Startup jobs. Needs Firecrawl."
+                },
+                {
+                    "name":  "Work at a Startup (YC)",
+                    "urlTemplate":  "https://www.workatastartup.com/jobs?query={role}",
+                    "notes":  "Y Combinator companies."
+                },
+                {
+                    "name":  "Otta / Welcome to the Jungle",
+                    "urlTemplate":  "https://www.welcometothejungle.com/en/jobs?query={role}\u0026aroundQuery={location}",
+                    "notes":  "Europe-focused tech jobs."
+                },
+                {
+                    "name":  "StepStone",
+                    "urlTemplate":  "https://www.stepstone.de/jobs/{role_slug}/in-{location_slug}?fromage={days}",
+                    "notes":  "Germany / Europe. Change the domain for your country."
+                },
+                {
+                    "name":  "XING",
+                    "urlTemplate":  "https://www.xing.com/jobs/search?keywords={role}\u0026location={location}",
+                    "notes":  "DACH region."
+                },
+                {
+                    "name":  "Naukri",
+                    "urlTemplate":  "https://www.naukri.com/{role_slug}-jobs-in-{location_slug}",
+                    "notes":  "India."
+                },
+                {
+                    "name":  "Built In",
+                    "urlTemplate":  "https://builtin.com/jobs?search={role}",
+                    "notes":  "US tech hubs."
+                },
+                {
+                    "name":  "Dice",
+                    "urlTemplate":  "https://www.dice.com/jobs?q={role}\u0026location={location}\u0026filters.postedDate=SEVEN",
+                    "notes":  "US tech."
+                },
+                {
+                    "name":  "ZipRecruiter",
+                    "urlTemplate":  "https://www.ziprecruiter.com/jobs-search?search={role}\u0026location={location}\u0026days={days}",
+                    "notes":  "US."
+                },
+                {
+                    "name":  "Reed",
+                    "urlTemplate":  "https://www.reed.co.uk/jobs/{role_slug}-jobs-in-{location_slug}",
+                    "notes":  "UK."
+                },
+                {
+                    "name":  "SEEK",
+                    "urlTemplate":  "https://www.seek.com.au/{role_slug}-jobs/in-{location_slug}",
+                    "notes":  "Australia / NZ."
+                },
+                {
+                    "name":  "ATS discovery search",
+                    "searchQuery":  "\"{role}\" \"{location}\" (site:boards.greenhouse.io OR site:jobs.lever.co OR site:jobs.ashbyhq.com OR site:apply.workable.com OR site:jobs.smartrecruiters.com)",
+                    "notes":  "Web search that surfaces postings on company ATS pages. Most reliable web method; combine with firecrawl_search."
+                }
+            ]
+}

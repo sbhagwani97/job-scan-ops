@@ -1,0 +1,7 @@
+{
+  "name": "job-scan",
+  "version": "0.1.0",
+  "description": "Scan job portals (preset ATS boards or Firecrawl), score each posting 1-5 against your CV, track results in tracker.md, and prepare applications for strong matches.",
+  "author": { "name": "job-scan" },
+  "keywords": ["jobs", "job-search", "cv", "resume", "tracker", "firecrawl"]
+}

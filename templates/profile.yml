@@ -1,0 +1,39 @@
+# job-scan profile - edit freely, /job-scan:scan re-reads it every run.
+
+cv: job-scan/cv/cv.md            # reviewed markdown version of your CV
+cv_profile: job-scan/cv/cv.profile.yml
+
+roles:                            # titles to search for, include synonyms
+  - Software Engineer
+  - Backend Engineer
+
+# ---- search filters (applied before scoring, so they also save tokens) ----
+filters:
+  locations:                      # cities as they appear in postings
+    - Berlin
+  countries:                      # names or ISO codes: Germany, DE, UK, US ...
+    - Germany
+  remote: include                 # include | only | exclude
+  remote_regions: [EU]            # remote roles must be open to one of these (or worldwide); [] = any
+  max_age_days: 14                # ignore postings older than this; null = no limit
+  drop_undated: false             # true = also drop postings with no posted date
+  exclude_keywords:               # drop titles containing any of these
+    - intern
+    - working student
+  seniority: [mid, senior]        # junior | mid | senior | staff | lead (unmarked titles count as mid)
+
+requirements:                     # judged by the scorer, not by the pre-filters
+  must_have:                      # a clear violation caps the score below the threshold
+    - Visa sponsorship or right to work in Germany
+  nice_to_have:
+    - Python
+    - Kubernetes
+  deal_breakers:
+    - On-site 5 days outside Berlin
+    - Defense industry
+  salary_min: null                # e.g. 70000 (yearly, currency in salary_currency)
+  salary_currency: EUR
+
+source_mode: both                 # portals | firecrawl | both
+threshold: 4.0                    # score >= threshold => Shortlisted
+max_jobs_per_scan: 60             # cap on postings sent to scoring per run
